@@ -1,1 +1,0 @@
-Simple API for RuPaul's Drag Race data using Node.js Express and MongoDB
