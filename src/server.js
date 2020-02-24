@@ -3,7 +3,6 @@ require('dotenv').config();
 
 const app = require('./config/express');
 const router = require('./controllers/index');
-const api = require('./controllers/api')
 const path = require('path');
 const port = process.env.PORT
 
@@ -46,10 +45,6 @@ app.use(checkAuth);
 
 // Routes
 app.use('/', router);
-app.use('api/', api)
-
-// Index
-// app.get('/', (req, res) => res.render('index'))
 
 // Run Server
 // module.parent check is required to support mocha watch

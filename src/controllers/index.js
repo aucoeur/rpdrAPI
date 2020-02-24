@@ -1,9 +1,9 @@
 const router = require('express').Router(); // eslint-disable-line new-cap
 
-const authRoutes = require('./auth');
+const userRoutes = require('./user');
 const apiRoutes = require('./api');
 
-router.use('/', authRoutes);
+router.use('/user', userRoutes);
 router.use('/api', apiRoutes);
 
 router.use('/*', (req, res) => {
