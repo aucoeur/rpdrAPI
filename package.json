@@ -1,0 +1,38 @@
+{
+  "name": "rpdr_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "mocha src/tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aucoeur/rpdr_API.git"
+  },
+  "author": "Aucoeur Ngo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aucoeur/rpdr_API/issues"
+  },
+  "homepage": "https://github.com/aucoeur/rpdr_API#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "cors": "^2.8.5",
+    "docsify": "^4.10.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^7.0.1",
+    "mongoose": "^5.9.1"
+  }
+}
