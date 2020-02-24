@@ -50,7 +50,7 @@ describe('Queen API endpoints', () => {
     let queen = new Queen(sampleQueen);
     queen.save().then(() => {
       chai.request(app)
-        .get('/queen/all')
+        .get('/api/queen/all')
         .set('jwttoken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
         .end((err, res) => {
           if (err) {
@@ -68,7 +68,7 @@ describe('Queen API endpoints', () => {
     let queen = new Queen(sampleQueen);
     queen.save().then((savedQueen) => {
       chai.request(app)
-        .get(`/queen/${savedQueen._id}`)
+        .get(`/api/queen/${savedQueen._id}`)
         .set('jwttoken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
         .end((err, res) => {
           if (err) return done(err);
@@ -83,7 +83,7 @@ describe('Queen API endpoints', () => {
 
   it('should POST a new queen', (done) => {
     chai.request(app)
-      .post('/queen/create')
+      .post('/api/queen/create')
       .set('jwttoken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
       .send(sampleQueen)
       .then(res => {
