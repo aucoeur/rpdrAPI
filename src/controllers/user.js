@@ -1,13 +1,12 @@
 const express = require('express');
 const jwt = require('jsonwebtoken')
-const User = require('../models/user')
+const User = require('../models/user.js')
 
 const router = express.Router(); // eslint-disable-line new-cap
 
-// CREATE User
-router.post('/create', (req, res) => {
+// SIGN UP
+router.post('/signup', (req, res) => {
   const user = new User(req.body)
-  
   user.save().then(user => {
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "60 days" });
     res.json({'jwttoken': token})
@@ -22,7 +21,6 @@ router.post('/login', (req, res) => {
 
   const username = req.body.username;
   const password = req.body.password;
-  
   // Find this user name
   User.findOne({ username }, "username password")
   .then(user => {
