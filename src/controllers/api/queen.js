@@ -7,25 +7,49 @@ const User = require('../../models/user')
 
   // POST new Queen at api/queen/create
   router.post('/create', (req, res) => {
-    console.log(req.user)
-    if (req.user) {
-      const queen = new Queen(req.body);
-      // queen.added_by = req.user._id;
-      queen.save()
-        .then(queen => {
-          res.json(queen)
-          // return User.findById(req.user._id);
-        })
-        .catch( err => {
-          console.log(err.message)
-        })
+    if (!req.user) {
+      res.send({ err: 'Must be logged in' })
     } else {
-      res.status(401).send({
-        status: 401,
-        message: 'Unauthenticated'
+      const queen = new Queen(req.body)
+      queen.save().then(result => {
+        res.json(result)
       })
     }
   })
+
+  // UPDATE Queen at api/queen/:id
+  router.update = (req, res) => {
+    // Validate Request
+    if(!req.body) {
+        return res.status(400).send({
+            message: "Queen content can not be empty"
+        });
+    }
+
+    // Find queen and update it with the request body
+    Queen.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        govtname: req.body.govtname,
+        birthdate: req.body.birthdate
+    }, {new: true})
+    .then(queen => {
+        if(!queen) {
+            return res.status(404).send({
+                message: "Queen not found with id " + req.params.id
+            });
+        }
+        res.send(queen);
+    }).catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Queen not found with id " + req.params.id
+            });                
+        }
+        return res.status(500).send({
+            message: "Queen not found with id " + req.params.id
+        });
+    });
+};
 
   // GET list of Queens at api/queen/all
   router.get('/all', (req, res) => {

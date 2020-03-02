@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const SeasonSchema = new Schema({
     seasonNumber: { type: Number, required: true },
+    seriesType: { type: String, required: true },
     premiereDate: { type: Date, required: true },
     episodes: [{ type: Schema.Types.ObjectId, ref: "Episode" }],
     queens: [{ type: Schema.Types.ObjectId, ref: "Queen" }]
