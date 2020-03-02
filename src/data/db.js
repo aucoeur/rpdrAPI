@@ -7,10 +7,10 @@ mongoose.Promise = global.Promise;
 mongoose.connect(
   url,
   { useNewUrlParser: true,
-    useFindAndModify: false,
+    // useFindAndModify: false,
     useCreateIndex: true,
     useUnifiedTopology: true },
-  function(err, db) {
+  (err, db) => {
     assert.equal(null, err);
     console.log("Connected successfully to database");
 

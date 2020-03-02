@@ -51,7 +51,7 @@ describe('Queen API endpoints', () => {
     queen.save().then(() => {
       chai.request(app)
         .get('/api/queen/all')
-        .set('jwttoken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
+        .set('jwtToken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
         .end((err, res) => {
           if (err) {
             return done(err)
@@ -69,7 +69,7 @@ describe('Queen API endpoints', () => {
     queen.save().then((savedQueen) => {
       chai.request(app)
         .get(`/api/queen/${savedQueen._id}`)
-        .set('jwttoken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
+        .set('jwtToken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
         .end((err, res) => {
           if (err) return done(err);
 
@@ -84,7 +84,7 @@ describe('Queen API endpoints', () => {
   it('should POST a new queen', (done) => {
     chai.request(app)
       .post('/api/queen/create')
-      .set('jwttoken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
+      .set('jwtToken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
       .send(sampleQueen)
       .then(res => {
         assert.equal(res.status, 200)

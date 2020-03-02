@@ -1,24 +1,24 @@
 const express = require('express');
-const jwt = require('jsonwebtoken')
-const User = require('../models/user.js')
+const User = require('../models/user.js');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router(); // eslint-disable-line new-cap
 
-// SIGN UP
+// SIGN UP at /signup
 router.post('/signup', (req, res) => {
   const user = new User(req.body)
   user.save().then(user => {
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "60 days" });
-    res.json({'jwttoken': token})
+    res.cookie("jwtToken", token, { maxAge: 900000, httpOnly: true });
+    res.json({'jwtToken': token})
   }).catch(err => {
     console.log(err.message);
     return res.status(400).send({ err: err });
   });
 })
 
-// LOGIN
+// LOGIN at /login
 router.post('/login', (req, res) => {
-
   const username = req.body.username;
   const password = req.body.password;
   // Find this user name
@@ -39,17 +39,19 @@ router.post('/login', (req, res) => {
           expiresIn: "60 days"
       });
       // Set a cookie and redirect to root
-      res.json({'jwttoken': token})
+      res.cookie("jwtToken", token, { maxAge: 900000, httpOnly: true });
+      res.json({'jwtToken': token})
     });
   })
   .catch(err => {
     console.log(err);
+    res.send('No credentials passed.')
   });
 })
 
-// LOGOUT
+// LOGOUT at /logout
 router.get('/logout', (req, res) => {
-  res.clearCookie('nToken');
+  res.clearCookie('jwtToken');
   res.redirect('/');
 })
 

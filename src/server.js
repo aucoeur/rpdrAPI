@@ -1,60 +1,46 @@
 require('dotenv').config();
 
-// const express = require('express')
+// const path = require('path');
+const port = process.env.PORT
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+
 const app = require('./config/express');
 const router = require('./controllers/index');
-const path = require('path');
-const port = process.env.PORT
 
 // Set db
 require('./data/db');
 
-// Middleware
-const jwt = require('jsonwebtoken');
-const exphbs = require('express-handlebars');
-
-// Handlebars
-app.engine('handlebars', exphbs({
-    defaultLayout: 'main',
-    layoutsDir: path.join(__dirname, "views/layouts"),
-    partialsDir: path.join(__dirname, "views/partials")
-}));
-app.set('view engine', 'handlebars');
-app.set('views',path.join(__dirname,'views'))
+app.use(cookieParser());
 
 // Check auth
 const checkAuth = (req, res, next) => {
-  console.log("Checking authentication");
-  if (typeof req.headers.jwttoken === "undefined" || req.headers.jwttoken === null) {
+  console.log("Checking authentication")
+  if (typeof req.cookies.jwtToken === "undefined" || req.cookies.jwtToken === null) {
+    console.log(req.cookies.jwtToken)
     req.user = null;
-    next();
   } else {
-    var token = req.headers.jwttoken;
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-      if (err) {
-          console.log('Error during authentication: Invalid signature')
-          req.user = null;
-      } else {
-          req.user = decodedToken;
-      }
-      next();
-    })
+    const token = req.cookies.jwtToken;
+    const decodedToken = jwt.decode(token, { complete: true }) || {};
+    req.user = decodedToken.payload;
   }
-};
+  next();
+};  
 
 app.use(checkAuth);
 
 // Routes
-app.use('/', router);
+app.use(router);
+
+
+module.exports = app;
 
 // Run Server
 // module.parent check is required to support mocha watch
 // src: https://github.com/mochajs/mocha/issues/1912
-if (!module.parent) {
+// if (!module.parent) {
   // listen on port config.port
   app.listen(port, () => {
       console.info(`server started on port ${port}! Click to view: http://localhost:${port}`);  // eslint-disable-line no-console
    });
-}
-
-module.exports = app;
+// }
