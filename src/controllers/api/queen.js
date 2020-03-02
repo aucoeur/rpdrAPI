@@ -7,8 +7,8 @@ const User = require('../../models/user')
 
   // POST new Queen at api/queen/create
   router.post('/create', (req, res) => {
-    // console.log(req.user)
-    // if (req.user) {
+    console.log(req.user)
+    if (req.user) {
       const queen = new Queen(req.body);
       // queen.added_by = req.user._id;
       queen.save()
@@ -19,12 +19,12 @@ const User = require('../../models/user')
         .catch( err => {
           console.log(err.message)
         })
-    // } else {
-    //   res.status(401).send({
-    //     status: 401,
-    //     message: 'Unauthenticated'
-    //   })
-    // }
+    } else {
+      res.status(401).send({
+        status: 401,
+        message: 'Unauthenticated'
+      })
+    }
   })
 
   // GET list of Queens at api/queen/all

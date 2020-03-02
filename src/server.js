@@ -8,24 +8,11 @@ const cookieParser = require('cookie-parser');
 const app = require('./config/express');
 const router = require('./controllers/index');
 
+const checkAuth = require('./middleware/auth');
 // Set db
 require('./data/db');
 
 app.use(cookieParser());
-
-// Check auth
-const checkAuth = (req, res, next) => {
-  console.log("Checking authentication")
-  if (typeof req.cookies.jwtToken === "undefined" || req.cookies.jwtToken === null) {
-    console.log(req.cookies.jwtToken)
-    req.user = null;
-  } else {
-    const token = req.cookies.jwtToken;
-    const decodedToken = jwt.decode(token, { complete: true }) || {};
-    req.user = decodedToken.payload;
-  }
-  next();
-};  
 
 app.use(checkAuth);
 

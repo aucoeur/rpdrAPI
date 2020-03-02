@@ -33,7 +33,7 @@ describe('User Auth', () => {
 
   it('should be able to sign up', (done) => {
     chai.request(app)
-      .post('/user/signup')
+      .post('/signup')
       .send(sampleUser)
       .then(res => {
         assert.equal(res.status, 200)
@@ -52,7 +52,7 @@ describe('User Auth', () => {
     let user = new User(sampleUser)
     user.save().then(savedUser => {
       chai.request(app)
-        .post('/user/login')
+        .post('/login')
         .send(sampleUser)
         .then(res => {
           console.log(res.body)

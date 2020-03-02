@@ -18,7 +18,7 @@ chai.use(chaiHttp)
 const sampleQueen = {
   name: 'Willam',
   govtname: 'Willam Belli',
-  birthday: '1982-06-30',
+  birthday: '1982-06-30T00:00:00.000Z',
 }
 
 /**
