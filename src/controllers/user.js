@@ -15,7 +15,7 @@ router.post('/signup', (req, res) => {
         expiresIn: "60 days" 
       });
     res.cookie("jwtToken", token, { maxAge: 900000, httpOnly: true });
-    res.json({'jwtToken': token})
+    res.json({'jwtToken': token, 'user': user })
   }).catch(err => {
     console.log(err.message);
     return res.status(400).send({ err: err });
@@ -45,7 +45,7 @@ router.post('/login', (req, res) => {
       });
       // Set a cookie and redirect to root
       res.cookie("jwtToken", token, { maxAge: 900000, httpOnly: true });
-      res.json({'jwtToken': token})
+      res.json({'jwtToken': token, 'user': user })
     });
   })
   .catch(err => {
