@@ -3,7 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=node,macos,dotenv,visualstudiocode
 
 ### express views ###
-views/
+views
 
 ### dotenv ###
 .env
