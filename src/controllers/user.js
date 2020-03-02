@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require('../models/user.js');
+const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -7,8 +7,13 @@ const router = express.Router(); // eslint-disable-line new-cap
 // SIGN UP at /signup
 router.post('/signup', (req, res) => {
   const user = new User(req.body)
+
   user.save().then(user => {
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "60 days" });
+    const token = jwt.sign({ 
+      _id: user._id 
+      }, process.env.JWT_SECRET, { 
+        expiresIn: "60 days" 
+      });
     res.cookie("jwtToken", token, { maxAge: 900000, httpOnly: true });
     res.json({'jwtToken': token})
   }).catch(err => {
