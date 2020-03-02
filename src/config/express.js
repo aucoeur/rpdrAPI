@@ -1,4 +1,6 @@
+// const path = require('path');
 const express = require('express');
+
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const routes = require('../controllers/index');
@@ -15,5 +17,7 @@ app.use(cors());
 app.use('/', routes);
 
 // #TODO: Additional non-API routes go here.
+
+// app.use(express.static(path.join(__dirname, 'docs')))
 
 module.exports = app;

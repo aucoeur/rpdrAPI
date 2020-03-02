@@ -1,6 +1,6 @@
-
 require('dotenv').config();
 
+// const express = require('express')
 const app = require('./config/express');
 const router = require('./controllers/index');
 const path = require('path');
@@ -41,6 +41,7 @@ const checkAuth = (req, res, next) => {
     })
   }
 };
+
 app.use(checkAuth);
 
 // Routes

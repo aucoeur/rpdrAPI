@@ -1,7 +1,16 @@
 # RuPaul's Drag Race API
 
-> Simple API for RuPaul's Drag Race data using Node.js Express and MongoDB
+> Simple API for retrieving information about award-winning reality series, RuPaul's Drag Race.  Implemented with Node.js, Express, and MongoDB.
 
 ## Installing
+Clone the repo and navigate to it in Terminal.  To install necessary dependencies (requires [npm](https://npmjs.org/)), run:
 
-## How to Use
+```shell
+npm install
+```
+
+To start the server, use:
+
+```shell
+npm start
+```
