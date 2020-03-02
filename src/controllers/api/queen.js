@@ -18,7 +18,7 @@ const User = require('../../models/user')
   })
 
   // UPDATE Queen at api/queen/:id
-  router.update = (req, res) => {
+  router.put('/:id/update', (req, res) => {
     // Validate Request
     if(!req.body) {
         return res.status(400).send({
@@ -49,7 +49,7 @@ const User = require('../../models/user')
             message: "Queen not found with id " + req.params.id
         });
     });
-};
+});
 
   // GET list of Queens at api/queen/all
   router.get('/all', (req, res) => {

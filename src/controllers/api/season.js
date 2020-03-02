@@ -16,7 +16,7 @@ router.post('/create', (req, res) => {
 })
 
   // UPDATE Season at api/season/:id
-  router.update = (req, res) => {
+  router.put("/:id/update", (req, res) => {
     // Validate Request
     if(!req.body) {
         return res.status(400).send({
@@ -47,7 +47,7 @@ router.post('/create', (req, res) => {
             message: "Season not found with id " + req.params.id
         });
     });
-};
+});
 
 
 // GET list of Seasons
