@@ -6,7 +6,7 @@
 views
 
 ### dotenv ###
-.env*
+.env
 
 ### macOS ###
 # General

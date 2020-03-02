@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     //     if (err) next(err);
     // });
     // res.redirect('https://aucoeur.github.io/rpdr_API/')
-    res.render('index');
+    res.send('START YOUR ENGINES AND MAY THE BEST QUERY WIN');
 });
 
 router.get('/*', (req, res) => {

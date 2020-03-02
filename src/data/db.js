@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 assert = require("assert");
 
-const url = "mongodb://localhost:27017/rpdr-api";
+const url = MONGODB_URI;
 mongoose.Promise = global.Promise;
 mongoose.connect(
   url,
