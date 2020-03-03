@@ -14,7 +14,7 @@ router.post('/signup', (req, res) => {
       }, process.env.JWT_SECRET, { 
         expiresIn: "60 days" 
       });
-    res.cookie("jwtToken", token, { maxAge: 900000, httpOnly: true });
+    // res.cookie("jwtToken", token, { maxAge: 900000, httpOnly: true });
     res.json({'jwtToken': token, 'user': user })
   }).catch(err => {
     console.log(err.message);
@@ -44,7 +44,7 @@ router.post('/login', (req, res) => {
           expiresIn: "60 days"
       });
       // Set a cookie and redirect to root
-      res.cookie("jwtToken", token, { maxAge: 900000, httpOnly: true });
+      // res.cookie("jwtToken", token, { maxAge: 900000, httpOnly: true });
       res.json({'jwtToken': token, 'user': user })
     });
   })
@@ -52,12 +52,6 @@ router.post('/login', (req, res) => {
     console.log(err);
     res.send('No credentials passed.')
   });
-})
-
-// LOGOUT at /logout
-router.get('/logout', (req, res) => {
-  res.clearCookie('jwtToken');
-  res.redirect('/');
 })
 
 module.exports = router;

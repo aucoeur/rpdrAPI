@@ -12,8 +12,8 @@ router.get('/', (req, res) => {
     // res.sendFile(path.resolve('./docs'), undefined, err => {
     //     if (err) next(err);
     // });
-    // res.redirect('https://aucoeur.github.io/rpdr_API/')
-    res.send('START YOUR ENGINES AND MAY THE BEST QUERY WIN');
+    res.redirect('https://aucoeur.github.io/rpdr_API/')
+    // res.send('START YOUR ENGINES AND MAY THE BEST QUERY WIN');
 });
 
 router.get('/*', (req, res) => {
