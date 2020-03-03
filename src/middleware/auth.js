@@ -3,11 +3,12 @@ const jwt = require('jsonwebtoken');
 
 //Check auth - headers
 let checkAuth = (req, res, next) => {
-  const authorization = req.headers['authorization']
-  console.log("Checking authentication");
-  console.log(authorization)
+    console.log("Checking authentication");
+    
+    const authorization = req.headers['authorization']
+    console.log(authorization)
 
-  if (typeof req.headers.authorization === "undefined" || req.headers.authorization === null) {
+  if (typeof authorization === "undefined" || authorization === null) {
     req.user = null;
     next();
   } else {
