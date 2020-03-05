@@ -24,12 +24,8 @@ router.post('/create', (req, res) => {
         });
     }
 
-    // Find note and update it with the request body
-    Season.findByIdAndUpdate(req.params.id, {
-        seasonNumber: req.body.seasonNumber,
-        premiereDate: req.body.premiereDate,
-        seriesType: req.body.seriesType
-    }, {new: true})
+    // Find season and update it with the request body
+    Season.findByIdAndUpdate(req.params.id, req.body, {new: true})
     .then(season => {
         if(!season) {
             return res.status(404).send({

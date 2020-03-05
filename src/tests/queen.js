@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const chai = require('chai'); // eslint-disable-line import/newline-after-import
 const chaiHttp = require("chai-http")
 const jwt = require('jsonwebtoken')
+// const expect = chai.expect;
 const assert = chai.assert
 
 const User = require('../models/user')
@@ -18,7 +19,7 @@ chai.use(chaiHttp)
 const sampleQueen = {
   name: 'Willam',
   govtname: 'Willam Belli',
-  birthday: '1982-06-30T00:00:00.000Z',
+  birthdate: '1982-06-30T00:00:00.000Z',
 }
 
 /**
@@ -69,13 +70,14 @@ describe('Queen API endpoints', () => {
     queen.save().then((savedQueen) => {
       chai.request(app)
         .get(`/api/queen/${savedQueen._id}`)
-        .set('jwtToken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
+        .set('authorization', 'Bearer ' + process.env.TOKEN)
+        // .set('jwtToken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
         .end((err, res) => {
           if (err) return done(err);
-
+          assert.equal(res.status, 200)
           assert.equal(res.body.name, 'Willam')
           assert.equal(res.body.govtname, 'Willam Belli')
-          assert.equal(res.body.birthday, '1982-06-30T00:00:00.000Z')
+          assert.equal(res.body.birthdate, '1982-06-30T00:00:00.000Z')
           return done()
         })
     })
@@ -84,13 +86,13 @@ describe('Queen API endpoints', () => {
   it('should POST a new queen', (done) => {
     chai.request(app)
       .post('/api/queen/create')
-      .set('jwtToken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
+      .set('authorization', 'Bearer ' + process.env.TOKEN)
       .send(sampleQueen)
       .then(res => {
         assert.equal(res.status, 200)
         assert.equal(res.body.name, 'Willam')
         assert.equal(res.body.govtname, 'Willam Belli')
-        assert.equal(res.body.birthday, '1982-06-30T00:00:00.000Z')
+        assert.equal(res.body.birthdate, '1982-06-30T00:00:00.000Z')
         assert.isNotEmpty(res.body._id)
 
         // make sure data actually got added to the database
