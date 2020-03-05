@@ -1,3 +1,2 @@
 - [Home](/)
-  - [Installing](/#/installing)
 - [Usage](endpoints.md)
