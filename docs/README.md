@@ -14,3 +14,6 @@ To start the server, use:
 ```shell
 npm start
 ```
+
+
+## [Usage](endpoints.md)

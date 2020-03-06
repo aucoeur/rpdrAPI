@@ -1,7 +1,23 @@
 const express = require('express')
 const router = express.Router(); // eslint-disable-line new-cap
-
 const Season = require('../../models/season')
+
+// GET list of Seasons
+router.get('/all', (req, res) => {
+  Season.find().then(result => {
+    res.json(result);
+  })
+})
+
+// GET specific Season
+router.get('/:id', (req, res) => {
+  Season.findOne({_id: req.params.id})
+  .populate('episodes', 'episodeNumber title')
+  .then(result => {
+    res.json(result);
+  })
+})
+
 
 // POST new Season
 router.post('/create', (req, res) => {
@@ -15,49 +31,50 @@ router.post('/create', (req, res) => {
   }
 })
 
-  // UPDATE Season at api/season/:id
-  router.put("/:id/update", (req, res) => {
-    // Validate Request
-    if(!req.body) {
-        return res.status(400).send({
-            message: "Season content can not be empty"
-        });
-    }
+// UPDATE Season at api/season/:id
+router.put("/:id/update", (req, res) => {
+  // Validate Request
+  if(!req.body) {
+      return res.status(400).send({
+          message: "Season content can not be empty"
+      });
+  }
 
-    // Find season and update it with the request body
-    Season.findByIdAndUpdate(req.params.id, req.body, {new: true})
-    .then(season => {
-        if(!season) {
-            return res.status(404).send({
-                message: "Season not found with id " + req.params.id
-            });
-        }
-        res.send(note);
-    }).catch(err => {
-        if(err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "Season not found with id " + req.params.id
-            });                
-        }
-        return res.status(500).send({
-            message: "Season not found with id " + req.params.id
-        });
-    });
+  // Find season and update it with the request body
+  Season.findByIdAndUpdate(req.params.id, req.body, {new: true})
+  .then(season => {
+      if(!season) {
+          return res.status(404).send({
+              message: "Season not found with id " + req.params.id
+          });
+      }
+      res.send(note);
+  }).catch(err => {
+      if(err.kind === 'ObjectId') {
+          return res.status(404).send({
+              message: "Season not found with id " + req.params.id
+          });                
+      }
+      return res.status(500).send({
+          message: "Season not found with id " + req.params.id
+      });
+  });
 });
 
+// DELETE Season at api/queen/:id
+router.delete("/:id", (req, res) => {
+  if (!req.user) {
+    res.send({ err: 'Must be logged in' })
+  } else {
+    Season.deleteOne( {_id: req.params.id} )
+      .then(function(err, season) {
+        res.send('Entry deleted');
+        })
+    .catch(err => {
+      console.log(err.message);
+    });
+  }
+});
 
-// GET list of Seasons
-router.get('/all', (req, res) => {
-  Season.find().then(result => {
-    res.json(result);
-  })
-})
-
-// GET specific Season
-router.get('/:id', (req, res) => {
-  Season.findOne({_id: req.params.id}).then(result => {
-    res.json(result);
-  })
-})
 
 module.exports = router

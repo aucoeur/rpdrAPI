@@ -7,7 +7,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(
   url,
   { useNewUrlParser: true,
-    // useFindAndModify: false,
+    useFindAndModify: false,
     useCreateIndex: true,
     useUnifiedTopology: true },
   (err, db) => {
