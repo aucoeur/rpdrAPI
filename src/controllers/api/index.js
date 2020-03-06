@@ -6,6 +6,7 @@ const episodeRouter = require('./episode');
 
 router.use('/queen', queenRouter);
 router.use('/season', seasonRouter);
+
 router.use('/season/:seasonId/episode', function(req, res, next) {
     req.seasonId = req.params.seasonId;
     next()

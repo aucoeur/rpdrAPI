@@ -24,6 +24,47 @@ Sample data:
     }
 ```
 
+### Get All Seasons
+
+Place `GET` request at `/api/season/all`
+
+### Get Season By ID
+
+Place `GET` request at `/api/season/:id`
+
+Sample data:
+```json
+    {
+        "episodes": [
+            {
+                "_id": "5e61b98943eb39b23bf4fbd5",
+                "episodeNumber": 1,
+                "title": "All Star Talent Show Extravaganza"
+            }
+        ],
+        "queens": [
+            {
+                "_id": "5e61c29feb0096b730c88cb3",
+                "name": "Katya Zamolodchikova"
+            },
+            {
+                "_id": "5e61c7c564fb6bb8fb200366",
+                "name": "Alyssa Edwards"
+            },
+            {
+                "_id": "5e61d256e21c9dbcbb035a86",
+                "name": "Detox Icunt"
+            }
+        ],
+        "_id": "5e5d8107b99afea2ec5c91b3",
+        "seasonNumber": 2,
+        "premiereDate": "2015-03-02T00:00:00.000Z",
+        "seriesType": "All Stars",
+        "__v": 4
+    }
+```
+
+
 ## Protected Endpoints
 
 The following endpoints are only available to registered users.  After login, use JWT token given in `Authorization` header to send `POST`, `PUT`, `DELETE` requests using Postman or otherwise.
@@ -71,3 +112,4 @@ Send `DELETE` request to `/api/queen/:id`
 	"govtname": "Justin Honard"
 }
 ```
+
