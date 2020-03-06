@@ -43,15 +43,14 @@ router.post('/', (req, res) => {
 
 // UPDATE Episode at /episode/:id
 router.put("/:id", (req, res) => {
-  // Validate Request
-  if(!req.body) {
-      return res.status(400).send({
-          message: "Episode content can not be empty"
-      });
-  }
-
+    // Validate Request
+    if(!req.body) {
+        return res.status(400).send({
+            message: "Episode content can not be empty"
+        });
+    }
     // Find episode and update it with the request body
-    Episode.findOneAndUpdate( { _id: req.params.id }, req.body, {new: true})
+    Episode.findByIdAndUpdate( { _id: req.params.id }, req.body, {new: true})
     .then(episode => {
         episode.season = req.seasonId
         episode.save()
@@ -59,7 +58,7 @@ router.put("/:id", (req, res) => {
     })
     .then(episode => {
         season.episodes.push(episode)
-        res.json(Episode)
+        res.json(episode)
         return season.save()
     }).catch(err => {
         console.log(err.message)
@@ -67,20 +66,20 @@ router.put("/:id", (req, res) => {
     });
 });
 
-  // DELETE Episode at api/queen/:id
-  router.delete("/:id", (req, res) => {
-    if (!req.user) {
-      res.send({ err: 'Must be logged in' })
-    } else {
-      Episode.deleteOne( {_id: req.params.id} )
-        .then(function(err, episode) {
-          res.send('Entry deleted');
-          })
-      .catch(err => {
-        console.log(err.message);
-      });
-    }
-  });
+// DELETE Episode at /episode/:id
+router.delete("/:id", (req, res) => {
+if (!req.user) {
+    res.send({ err: 'Must be logged in' })
+} else {
+    Episode.deleteOne( {_id: req.params.id} )
+    .then(function(err, episode) {
+        res.send('Entry deleted');
+        })
+    .catch(err => {
+    console.log(err.message);
+    });
+}
+});
 
 
 module.exports = router

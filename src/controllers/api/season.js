@@ -4,15 +4,19 @@ const Season = require('../../models/season')
 
 // GET list of Seasons
 router.get('/all', (req, res) => {
-  Season.find().then(result => {
-    res.json(result);
-  })
+    Season.find()
+    .populate('episodes', 'episodeNumber title')
+    .populate('queens', 'name')
+    .then(result => {
+      res.json(result);
+    })
 })
 
 // GET specific Season
 router.get('/:id', (req, res) => {
   Season.findOne({_id: req.params.id})
   .populate('episodes', 'episodeNumber title')
+  .populate('queens', 'name')
   .then(result => {
     res.json(result);
   })
@@ -31,8 +35,8 @@ router.post('/create', (req, res) => {
   }
 })
 
-// UPDATE Season at api/season/:id
-router.put("/:id/update", (req, res) => {
+// UPDATE Season at season/:id
+router.put("/:id", (req, res) => {
   // Validate Request
   if(!req.body) {
       return res.status(400).send({
