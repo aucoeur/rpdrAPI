@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
 
 
 // POST new Season
-router.post('/create', (req, res) => {
+router.post('/', (req, res) => {
   if (!req.user) {
       res.send({ err: 'Must be logged in' })
     } else {
