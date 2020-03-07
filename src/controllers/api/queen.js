@@ -37,9 +37,13 @@ router.post('/', (req, res) => {
           return Season.findById(req.seasonId)
       })
       .then(season => {
-          season.queens.push(queen)
-          season.save()
+        if (!req.seasonId) {
           res.json(queen)
+        } else {
+            season.queens.push(queen)
+            season.save()
+            res.json(queen)
+        }
       }).catch(err => {
           console.log(err.message)
           res.send(err.message)

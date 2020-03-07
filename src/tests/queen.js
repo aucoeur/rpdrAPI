@@ -104,6 +104,30 @@ describe('Queen API endpoints', () => {
 
   it('should POST a new queen', (done) => {
     chai.request(app)
+        .post('/api/queen')
+        .set('authorization', 'Bearer ' + process.env.TOKEN)
+        // .set('jwtToken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
+        .send(sampleQueen)
+        .then(res => {
+            assert.equal(res.status, 200)
+            assert.equal(res.body.name, 'Willam')
+            assert.equal(res.body.govtname, 'Willam Belli')
+            assert.equal(res.body.birthdate, '1982-06-30T00:00:00.000Z')
+            assert.isNotEmpty(res.body._id)
+
+        // make sure data actually got added to the database
+        Queen.find({name: 'Willam'}).then(result => {
+          assert.equal(result.length, 1)
+        })
+
+        return done()
+      }).catch(err => {
+        return done(err)
+      })
+  })
+
+    it('should POST a new queen nested in season', (done) => {
+    chai.request(app)
         .post('/api/season/5e5d8107b99afea2ec5c91b3/queen')
         .set('authorization', 'Bearer ' + process.env.TOKEN)
         // .set('jwtToken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
