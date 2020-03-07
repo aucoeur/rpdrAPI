@@ -15,11 +15,18 @@ chai.config.includeStack = true
 chai.should()
 chai.use(chaiHttp)
 
+
+// Sample User
+const user = {
+  username: 'test_user1', 
+  password: 'itsasecret'
+}
+
 // Sample MS Queen
 const sampleQueen = {
   name: 'Willam',
   govtname: 'Willam Belli',
-  birthdate: '1982-06-30T00:00:00.000Z',
+  birthdate: '1982-06-30T00:00:00.000Z'
 }
 
 /**
@@ -30,19 +37,31 @@ after((done) => {
   mongoose.models = {}
   mongoose.modelSchemas = {}
   mongoose.connection.close()
+  chai.request(app).close()
   done();
 });
 
 
+
 describe('Queen API endpoints', () => {
   beforeEach((done) => {
-    User.create({username: 'test_user1', password: 'itsasecret'})
-    done()
+    chai.request(app)
+        .post('/signup')
+        .set('content-type', 'application/json')
+        .send(user)
+        .then(function (res) {
+            done()
+        })
+        .catch(function (err) {
+            done(err)
+        })
   })
 
   afterEach((done) => {
-    User.findOneAndRemove({username: 'test_user1'}).then(() => {
-      Queen.findOneAndRemove({name: 'Willam'}).then(() => done())
+    User.findOneAndRemove({username: 'test_user1'})
+    .then(() => {
+      Queen.findOneAndRemove({name: 'Willam'})
+      .then(() => done())
     })
   })
 
@@ -70,7 +89,7 @@ describe('Queen API endpoints', () => {
     queen.save().then((savedQueen) => {
       chai.request(app)
         .get(`/api/queen/${savedQueen._id}`)
-        .set('authorization', 'Bearer ' + process.env.TOKEN)
+        // .set('authorization', 'Bearer ' + process.env.TOKEN)
         // .set('jwtToken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
         .end((err, res) => {
           if (err) return done(err);
@@ -85,15 +104,16 @@ describe('Queen API endpoints', () => {
 
   it('should POST a new queen', (done) => {
     chai.request(app)
-      .post('/api/queen/create')
-      .set('authorization', 'Bearer ' + process.env.TOKEN)
-      .send(sampleQueen)
-      .then(res => {
-        assert.equal(res.status, 200)
-        assert.equal(res.body.name, 'Willam')
-        assert.equal(res.body.govtname, 'Willam Belli')
-        assert.equal(res.body.birthdate, '1982-06-30T00:00:00.000Z')
-        assert.isNotEmpty(res.body._id)
+        .post('/api/season/5e5d8107b99afea2ec5c91b3/queen')
+        .set('authorization', 'Bearer ' + process.env.TOKEN)
+        // .set('jwtToken', jwt.sign({ username: 'test_user1' }, process.env.JWT_SECRET))
+        .send(sampleQueen)
+        .then(res => {
+            assert.equal(res.status, 200)
+            assert.equal(res.body.name, 'Willam')
+            assert.equal(res.body.govtname, 'Willam Belli')
+            assert.equal(res.body.birthdate, '1982-06-30T00:00:00.000Z')
+            assert.isNotEmpty(res.body._id)
 
         // make sure data actually got added to the database
         Queen.find({name: 'Willam'}).then(result => {
@@ -105,4 +125,17 @@ describe('Queen API endpoints', () => {
         return done(err)
       })
   })
+
+    it("Should be able to delete a Queen", (done) => {
+        let queen = new Queen(sampleQueen);
+        queen.save().then((savedQueen) => {
+            chai.request(app)
+                .delete(`/api/season/5e5d8107b99afea2ec5c91b3/queen/${savedQueen._id}`)
+                .end((err, res) => {
+                    if (err) {return done(err)};
+                    res.status.should.be.equal(200);
+                    return done();
+                });
+        })
+    });
 })
