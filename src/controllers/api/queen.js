@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router() 
+const router = express.Router()
 
 const Queen = require('../../models/queen')
 const Season = require('../../models/season')
@@ -7,19 +7,23 @@ const User = require('../../models/user')
 
 
 // GET list of Queens at api/queen/all
-router.get('/all', (req, res) => {
-    Queen.find().then(result => {
+router.get('/all', async (req, res) => {
+    await Queen.find().then(result => {
         res.json(result);
-    })
+    }).catch(err => {
+        res.send({error: err.message});
+      })
 })
 
 // GET specific Queen at api/queen/:id
-router.get('/:id', (req, res) => {
-    Queen.findOne({ _id: req.params.id })
-        .populate('seasons', 'seriesType seasonNumber')
-        .then(result => {
+router.get('/:id', async (req, res) => {
+  await Queen.findOne(req.params.id)
+      .populate('seasons', 'seriesType seasonNumber')
+      .then(result => {
         res.json(result);
-        })
+      }).catch(err => {
+        res.send({error: err.message});
+      })
 })
 
 

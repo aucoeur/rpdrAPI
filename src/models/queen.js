@@ -7,6 +7,9 @@ const QueenSchema = new Schema({
     govtname: { type: String, required: true },
     birthdate: { type: Date, required: false },
     seasons: [{ type: Schema.Types.ObjectId, ref: "Season"}],
+    instagram: { type: String, unique: true },
+    twitter: { type: String, unique: true },
+    website: { type: String }, 
     added_by: {type: Schema.Types.ObjectId, ref: "User"}
 });
 

@@ -5,17 +5,23 @@ const Episode = require('../../models/episode');
 const Season = require('../../models/season')
 
 // GET list of Episodes
-router.get('/', (req, res) => {
-    Episode.find().then(result => {
+router.get('/', async (req, res) => {
+    await Episode.find()
+    .then(result => {
         res.json(result);
-    })
+    }).catch(err => {
+        res.send({error: err.message});
+      })
 })
 
 // GET specific Episode
-router.get('/:id', (req, res) => {
-    Episode.findOne({_id: req.params.id}).then(result => {
+router.get('/:id', async (req, res) => {
+    await Episode.findOne({_id: req.params.id})
+    .then(result => {
         res.json(result);
-    })
+    }).catch(err => {
+        res.send({error: err.message});
+      })
 })
 
 // POST new Episode
@@ -29,7 +35,7 @@ router.post('/', (req, res) => {
             .save()
             .then(() => {
                 return Season.findById(req.seasonId)
-            }) 
+            })
             .then(season => {
                 season.episodes.push(episode)
                 season.save();

@@ -2,7 +2,7 @@
 const express = require('express');
 // const exphbs = require('express-handlebars');
 const expressValidator = require('express-validator');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const checkAuth = require('../middleware/auth');
 const cors = require('cors');
@@ -20,8 +20,12 @@ const app = express();
 // app.set('view engine', 'handlebars');
 // app.set('views',path.join(__dirname,'views'))
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
 
 app.use(cookieParser());
 

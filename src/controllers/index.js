@@ -1,6 +1,6 @@
 // const path = require('path');
 const express = require('express')
-const router = express.Router(); 
+const router = express.Router();
 
 const userRoutes = require('./user');
 const apiRoutes = require('./api');
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     //     if (err) next(err);
     // });
     // res.redirect('https://aucoeur.github.io/rpdr_API/')
-    res.send('<div style="text-align: center"><h1>START YOUR ENGINES AND MAY THE BEST QUERY WIN.</h1><iframe src="https://giphy.com/embed/3otWpF7M7JDInxGaek" width="480" height="269" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><br /><h2>Check the documentation here: <a href="https://aucoeur.github.io/rpdr_API/">https://aucoeur.github.io/rpdr_API/</a></h2>');
+    res.send('<div style="text-align: center"><h1>START YOUR ENGINES AND MAY THE BEST QUERY WIN.</h1><iframe src="https://giphy.com/embed/3otWpF7M7JDInxGaek" width="480" height="269" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><br /><h2>Check the documentation here: <a href="https://aucoeur.github.io/rpdrAPI/">https://aucoeur.github.io/rpdrAPI/</a></h2>');
 });
 
 router.get('/*', (req, res) => {

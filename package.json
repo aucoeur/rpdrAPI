@@ -1,26 +1,26 @@
 {
-  "name": "rpdr_api",
-  "version": "1.0.0",
-  "description": "",
+  "name": "rpdrapi",
+  "version": "1.0.1",
+  "description": "Authenticated RESTful API for retrieving data from RuPaul's Drag Race",
   "main": "server.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "start": "node src/server.js",
+    "start": "nodemon src/server.js",
     "dev": "nodemon src/server.js",
     "test": "mocha src/tests"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aucoeur/rpdr_API.git"
+    "url": "git+https://github.com/aucoeur/rpdrAPI.git"
   },
   "author": "Aucoeur Ngo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/aucoeur/rpdr_API/issues"
+    "url": "https://github.com/aucoeur/rpdrAPI/issues"
   },
-  "homepage": "https://github.com/aucoeur/rpdr_API#readme",
+  "homepage": "https://github.com/aucoeur/rpdrAPI#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -28,16 +28,16 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-handlebars": "^3.1.0",
+    "express-handlebars": "^5.3.0",
     "express-validator": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.4",
+    "mongoose": "^5.12.3",
     "mongoose-unique-validator": "^2.0.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "handlebars": "^4.7.3",
-    "mocha": "^7.0.1"
+    "mocha": "^8.3.2"
   }
 }

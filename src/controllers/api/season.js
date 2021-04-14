@@ -3,23 +3,28 @@ const router = express.Router(); // eslint-disable-line new-cap
 const Season = require('../../models/season')
 
 // GET list of Seasons
-router.get('/all', (req, res) => {
-    Season.find()
+router.get('/all', async (req, res) => {
+    await Season.find()
     .populate('episodes', 'episodeNumber title')
     .populate('queens', 'name')
     .then(result => {
       res.json(result);
-    })
+    }).catch(err => {
+        res.send({error: err.message});
+      })
 })
 
 // GET specific Season
-router.get('/:id', (req, res) => {
-  Season.findOne({_id: req.params.id})
+router.get('/:id', async (req, res) => {
+  await Season.findOne({_id: req.params.id})
   .populate('episodes', 'episodeNumber title')
   .populate('queens', 'name')
   .then(result => {
     res.json(result);
   })
+  .catch(err => {
+        res.send({error: err.message});
+      })
 })
 
 
@@ -57,7 +62,7 @@ router.put("/:id", (req, res) => {
       if(err.kind === 'ObjectId') {
           return res.status(404).send({
               message: "Season not found with id " + req.params.id
-          });                
+          });
       }
       return res.status(500).send({
           message: "Season not found with id " + req.params.id
