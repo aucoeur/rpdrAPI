@@ -188,9 +188,9 @@ Send `POST` request to `/api/queen`
  In Postman `BODY`, select `RAW` and paste in this format: 
 ```json
 {
-	"name": "Manila Luzon",
-	"govtname": "Karl Philip Michael Westerberg",
-    "birthdate": "1981-08-10",
+  "name": "Manila Luzon",
+  "govtname": "Karl Philip Michael Westerberg",
+  "birthdate": "1981-08-10",
 }
 ```
 
@@ -201,8 +201,8 @@ Send `PUT` request to `/api/queen/:id`
  In Postman `BODY`, select `RAW` and paste in this format: 
 ```json
 {
-	"name": "Alaska Thunderfun 5000",
-	"govtname": "Justin Honard"
+  "name": "Alaska Thunderfun 5000",
+  "govtname": "Justin Honard"
 }
 ```
 
@@ -219,10 +219,10 @@ Send `POST` request to `/api/season/`
 In Postman `BODY`, select `RAW` and paste in this format: 
 ```json
 {
-    "_id": "5e5d8107b99afea2ec5c91b3",
-    "seasonNumber": 2,
-    "premiereDate": "2015-03-02T00:00:00.000Z",
-    "seriesType": "All Stars"
+  "_id": "5e5d8107b99afea2ec5c91b3",
+  "seasonNumber": 2,
+  "premiereDate": "2015-03-02T00:00:00.000Z",
+  "seriesType": "All Stars"
 }
 ```
 
@@ -233,10 +233,10 @@ Send `PUT` request to `/api/season/:id`
 In Postman `BODY`, select `RAW` and paste in this format: 
 ```json
 {
-    "_id": "5e5d8107b99afea2ec5c91b3",
-    "seasonNumber": 2,
-    "premiereDate": "2015-03-02T00:00:00.000Z",
-    "seriesType": "All Stars"
+  "_id": "5e5d8107b99afea2ec5c91b3",
+  "seasonNumber": 2,
+  "premiereDate": "2015-03-02T00:00:00.000Z",
+  "seriesType": "All Stars"
 }
 ```
 
@@ -255,10 +255,10 @@ Send `POST` request to `/api/season/:seasonID/episode/`
  In Postman `BODY`, select `RAW` and paste in this format: 
 ```json
 {
-    "_id": "5e5d8107b99afea2ec5c91b3",
-    "seasonNumber": 2,
-    "premiereDate": "2015-03-02T00:00:00.000Z",
-    "seriesType": "All Stars"
+  "_id": "5e5d8107b99afea2ec5c91b3",
+  "seasonNumber": 2,
+  "premiereDate": "2015-03-02T00:00:00.000Z",
+  "seriesType": "All Stars"
 }
 ```
 
@@ -269,10 +269,10 @@ Send `PUT` request to `/api/season/:seasonID/episode/:episodeID`
  In Postman `BODY`, select `RAW` and paste in this format: 
 ```json
 {
-    "_id": "5e61b98943eb39b23bf4fbd5",
-    "episodeNumber": 1,
-    "title": "All Star Talent Show Extravaganza",
-    "airDate": "2016-08-25T00:00:00.000Z"
+  "_id": "5e61b98943eb39b23bf4fbd5",
+  "episodeNumber": 1,
+  "title": "All Star Talent Show Extravaganza",
+  "airDate": "2016-08-25T00:00:00.000Z"
 }
 ```
 
