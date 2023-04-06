@@ -1,12 +1,12 @@
 // const path = require('path');
-const express = require('express');
+const express = require("express");
 // const exphbs = require('express-handlebars');
-const expressValidator = require('express-validator');
+// const expressValidator = require('express-validator');
 // const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const checkAuth = require('../middleware/auth');
-const cors = require('cors');
-const routes = require('../controllers/index');
+const cookieParser = require("cookie-parser");
+const checkAuth = require("../middleware/auth");
+const cors = require("cors");
+const routes = require("../controllers/index");
 
 const app = express();
 
@@ -23,22 +23,24 @@ const app = express();
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.urlencoded({
-  extended: true
-}));
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
 app.use(cookieParser());
 
 // Enable CORS - Cross Origin Resource Sharing.
 app.use(cors());
 
-app.use(expressValidator());
+// v6 has different implementation of express-validator, commented out because was i even using it? lol
+// app.use(expressValidator());
 
 app.use(checkAuth);
 
 // Mount all routes on / path.
-app.use('/', routes);
-
+app.use("/", routes);
 
 // #TODO: Additional non-API routes go here.
 

@@ -1,5 +1,12 @@
 # RuPaul's Drag Race API
 
+> Hey Squirrel Friends! When one database ends, just open up another. Go ahead, I support you 😘 
+>
+> Look over there! https://shiraamitchell.github.io/rpdr
+
+
+--------------
+
 Authenticated RESTful API for retrieving information about award-winning reality TV series, RuPaul's Drag Race.  Implemented using **Node.js**, **Express**, and **MongoDB**.
 
 <p align="center">
