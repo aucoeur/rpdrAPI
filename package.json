@@ -31,7 +31,7 @@
     "express-handlebars": "^5.3.1",
     "express-validator": "^6.15.0",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^5.13.15",
+    "mongoose": "^5.13.20",
     "mongoose-unique-validator": "^2.0.3"
   },
   "devDependencies": {
