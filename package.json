@@ -1,15 +1,30 @@
 {
-  "name": "rpdrapi",
-  "version": "1.0.1",
-  "description": "Authenticated RESTful API for retrieving data from RuPaul's Drag Race",
-  "main": "server.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "name": "rpdr-api",
+  "version": "2.0.0",
+  "description": "Modern RuPaul's Drag Race API - TypeScript, GraphQL, PostgreSQL",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "start": "nodemon src/server.js",
-    "dev": "nodemon src/server.js",
-    "test": "mocha src/tests"
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "dev": "npm run dev --workspaces",
+    "clean": "npm run clean --workspaces",
+    "type-check": "npm run type-check --workspaces",
+    "docs:dev": "cd docs && npm start",
+    "docs:build": "cd docs && npm run build",
+    "docs:serve": "cd docs && npm run serve",
+    "legacy:start": "nodemon src/server.js",
+    "legacy:dev": "nodemon src/server.js",
+    "legacy:test": "mocha src/tests",
+    "api:dev": "cd packages/api && npm run dev",
+    "api:build": "cd packages/api && npm run build",
+    "api:start": "cd packages/api && npm start",
+    "pipeline:dev": "cd packages/data-pipeline && npm run dev",
+    "pipeline:build": "cd packages/data-pipeline && npm run build",
+    "pipeline:start": "cd packages/data-pipeline && npm start"
   },
   "repository": {
     "type": "git",
@@ -21,24 +36,16 @@
     "url": "https://github.com/aucoeur/rpdrAPI/issues"
   },
   "homepage": "https://github.com/aucoeur/rpdrAPI#readme",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.4",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.3",
-    "express-handlebars": "^5.3.1",
-    "express-validator": "^6.15.0",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^5.13.20",
-    "mongoose-unique-validator": "^2.0.3"
-  },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "handlebars": "^4.7.3",
-    "mocha": "^10.2.0",
-    "nodemon": "^2.0.22"
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }

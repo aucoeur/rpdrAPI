@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: rpdr-postgres
+    environment:
+      POSTGRES_DB: rpdr_api
+      POSTGRES_USER: rpdr_user
+      POSTGRES_PASSWORD: rpdr_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./packages/api/prisma/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rpdr_user -d rpdr_api"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: rpdr-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # API Service
+  api:
+    build:
+      context: .
+      dockerfile: packages/api/Dockerfile
+    container_name: rpdr-api
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://rpdr_user:rpdr_password@postgres:5432/rpdr_api
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: your-jwt-secret-here
+    volumes:
+      - ./packages/api:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: npm run dev
+
+  # Data Pipeline Service
+  pipeline:
+    build:
+      context: .
+      dockerfile: packages/data-pipeline/Dockerfile
+    container_name: rpdr-pipeline
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://rpdr_user:rpdr_password@postgres:5432/rpdr_api
+    volumes:
+      - ./packages/data-pipeline:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: npm run dev
+
+volumes:
+  postgres_data:
+  redis_data:
