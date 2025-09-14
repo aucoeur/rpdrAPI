@@ -1,0 +1,148 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Core Models
+model Queen {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  legalName   String?
+  birthDate   DateTime?
+  hometown    String?
+  instagram   String?
+  twitter     String?
+  tiktok      String?
+  website     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  seasonParticipations SeasonParticipation[]
+  eliminations         Elimination[]
+
+  @@map("queens")
+}
+
+model Season {
+  id           String    @id @default(cuid())
+  number       Int       @unique
+  type         SeasonType
+  franchise    String    @default("US")
+  premiereDate DateTime
+  finaleDate   DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  // Relations
+  episodes     Episode[]
+  seasonParticipations SeasonParticipation[]
+
+  @@unique([number, franchise])
+  @@map("seasons")
+}
+
+model Episode {
+  id        String   @id @default(cuid())
+  seasonId  String
+  number    Int
+  title     String
+  airDate   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  season       Season        @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  challenges   Challenge[]
+  eliminations Elimination[]
+
+  @@unique([seasonId, number])
+  @@map("episodes")
+}
+
+model SeasonParticipation {
+  id                String  @id @default(cuid())
+  queenId           String
+  seasonId          String
+  placement         Int
+  episodeCount      Int     @default(0)
+  challengeWins     Int     @default(0)
+  lipSyncWins       Int     @default(0)
+  isWinner          Boolean @default(false)
+  isMissCongeniality Boolean @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  queen   Queen  @relation(fields: [queenId], references: [id], onDelete: Cascade)
+  season  Season @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+
+  @@unique([queenId, seasonId])
+  @@map("season_participations")
+}
+
+model Challenge {
+  id          String        @id @default(cuid())
+  episodeId   String
+  name        String
+  type        ChallengeType
+  description String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Relations
+  episode Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+  @@map("challenges")
+}
+
+model Elimination {
+  id                String            @id @default(cuid())
+  queenId           String
+  episodeId         String
+  reason            EliminationReason
+  lipSyncSong       String?
+  lipSyncOpponent   String?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  // Relations
+  queen   Queen   @relation(fields: [queenId], references: [id], onDelete: Cascade)
+  episode Episode @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+  @@map("eliminations")
+}
+
+// Enums
+enum SeasonType {
+  REGULAR
+  ALL_STARS
+  UK
+  INTERNATIONAL
+}
+
+enum ChallengeType {
+  DESIGN
+  PERFORMANCE
+  IMPROV
+  COMEDY
+  ACTING
+  SINGING
+  DANCING
+  MAKEUP
+  OTHER
+}
+
+enum EliminationReason {
+  LIP_SYNC
+  DISQUALIFICATION
+  QUIT
+  OTHER
+}

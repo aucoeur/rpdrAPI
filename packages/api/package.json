@@ -32,8 +32,7 @@
     "jsonwebtoken": "^9.0.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.3.0",
-    "uuid": "^9.0.0",
-    "@rpdr/shared": "workspace:*"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.0",

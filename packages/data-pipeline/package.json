@@ -15,7 +15,6 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@rpdr/shared": "workspace:*",
     "playwright": "^1.40.0",
     "cheerio": "^1.0.0",
     "axios": "^1.6.0",
