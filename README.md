@@ -1,15 +1,15 @@
+> Hey Squirrel Friends!
+> 
+> **Note**: This API is under active development. The modern GraphQL API (v2.0) is the primary focus, while the legacy MongoDB API (v1.0) is maintained  for backward compatibility.
+> 
+> _When one database ends, just open up another. Go ahead, I support you_ 😘   
+> Look over there! 👉🏼  https://shiraamitchell.github.io/rpdr
 # RuPaul's Drag Race API
-
-> Hey Squirrel Friends! When one database ends, just open up another. Go ahead, I support you 😘 
->
-> Look over there! https://shiraamitchell.github.io/rpdr
-
---------------
 
 **Modern TypeScript/GraphQL/PostgreSQL API** for retrieving information about award-winning reality TV series, RuPaul's Drag Race. Built with a **monorepo architecture** using **npm workspaces**.
 
 <p align="center">
-<img src="./docs/screencap.png" width="300" alt="screenshot of JSON results from sample GET requests"/>
+<img src="docs/static/screencap.png" width="300" alt="screenshot of JSON results from sample GET requests"/>
 </p>
 
 ## 🚀 Quick Start
@@ -330,7 +330,3 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 - Original API by [Aucoeur Ngo](https://github.com/aucoeur)
 - Data source: [RuPaul's Drag Race Wiki](https://rupaulsdragrace.fandom.com/)
 - Inspiration: [Shira Mitchell's RPDR Data](https://shiraamitchell.github.io/rpdr)
-
----
-
-**Note**: This API is under active development. The modern GraphQL API (v2.0) is the primary focus, while the legacy MongoDB API (v1.0) is maintained for backward compatibility.
