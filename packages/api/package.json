@@ -20,7 +20,7 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
-    "@apollo/server": "^4.9.0",
+    "@apollo/server": "^5.5.1",
     "@prisma/client": "^5.7.0",
     "graphql": "^16.8.0",
     "graphql-tag": "^2.12.6",
