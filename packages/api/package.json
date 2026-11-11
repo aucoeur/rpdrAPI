@@ -24,7 +24,7 @@
     "@prisma/client": "^5.7.0",
     "graphql": "^16.8.0",
     "graphql-tag": "^2.12.6",
-    "zod": "^3.22.0",
+    "zod": "^4.6.7",
     "express": "^4.18.0",
     "cors": "^2.8.5",
     "helmet": "^7.1.0",

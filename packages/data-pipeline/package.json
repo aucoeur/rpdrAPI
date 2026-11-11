@@ -18,7 +18,7 @@
     "playwright": "^1.40.0",
     "cheerio": "^1.0.0",
     "axios": "^1.6.0",
-    "zod": "^3.22.0",
+    "zod": "^4.6.7",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
